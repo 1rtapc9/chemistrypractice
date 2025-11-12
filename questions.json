@@ -1,0 +1,58 @@
+{
+  "acid": {
+    "6": [
+      {"prompt":"Name HCl (aq).","canonicalAnswer":"hydrochloric acid","explanation":"Binary acid: 'hydro-' + root + '-ic acid'."},
+      {"prompt":"Name HBr (aq).","canonicalAnswer":"hydrobromic acid","explanation":"Binary acid: HBr in water is hydrobromic acid."},
+      {"prompt":"Name HI (aq).","canonicalAnswer":"hydroiodic acid","explanation":"Binary acids follow hydro-...-ic naming."},
+      {"prompt":"Name HF (aq).","canonicalAnswer":"hydrofluoric acid","explanation":"HF forms hydrofluoric acid in solution."}
+    ],
+    "7": [
+      {"prompt":"Name H2SO4 (aq).","canonicalAnswer":"sulfuric acid","explanation":"SO4^2- → sulfuric acid (-ic)."},
+      {"prompt":"Name HNO3 (aq).","canonicalAnswer":"nitric acid","explanation":"NO3^- → nitric acid (-ic)."},
+      {"prompt":"Name H2SO3 (aq).","canonicalAnswer":"sulfurous acid","explanation":"SO3^2- → sulfurous acid (-ous)."}
+    ],
+    "8": [
+      {"prompt":"Name H3PO4 (aq).","canonicalAnswer":"phosphoric acid","explanation":"PO4^3- → phosphoric acid."},
+      {"prompt":"Name H3PO3 (aq).","canonicalAnswer":"phosphorous acid","explanation":"PO3^3- → phosphorous acid."}
+    ],
+    "9": [
+      {"prompt":"Name H2CO3 (aq).","canonicalAnswer":"carbonic acid","explanation":"CO3^2- → carbonic acid."}
+    ],
+    "10": [
+      {"prompt":"Name HClO4 (aq).","canonicalAnswer":"perchloric acid","explanation":"ClO4^- → perchloric acid (per-...-ic)."},
+      {"prompt":"Name HClO (aq).","canonicalAnswer":"hypochlorous acid","explanation":"ClO^- → hypochlorous acid (hypo-...-ous)."}
+    ],
+    "11": [
+      {"prompt":"Name H2C2O4 (aq).","canonicalAnswer":"oxalic acid","explanation":"C2O4^2- → oxalic acid."}
+    ],
+    "12": [
+      {"prompt":"Name HCN (aq).","canonicalAnswer":"hydrocyanic acid","explanation":"Binary acid with CN^- is hydrocyanic acid."},
+      {"prompt":"Name H2Cr2O7 (aq).","canonicalAnswer":"dichromic acid","explanation":"Cr2O7^2- → dichromic acid."}
+    ]
+  },
+  "skeleton": {
+    "6": [
+      {"prompt":"Hydrogen burns in oxygen — skeleton.","canonicalAnswer":"2 H2 + O2 -> 2 H2O","explanation":"Combustion produces water."},
+      {"prompt":"Sodium reacts with chlorine gas — skeleton.","canonicalAnswer":"2 Na + Cl2 -> 2 NaCl","explanation":"Synthesis of an ionic compound."}
+    ],
+    "7": [
+      {"prompt":"Magnesium reacts with HCl — skeleton.","canonicalAnswer":"Mg + 2 HCl -> MgCl2 + H2","explanation":"Single replacement reaction."},
+      {"prompt":"Zinc reacts with sulfur — skeleton.","canonicalAnswer":"Zn + S -> ZnS","explanation":"Combination reaction."}
+    ],
+    "8": [
+      {"prompt":"Calcium reacts with water — skeleton.","canonicalAnswer":"Ca + 2 H2O -> Ca(OH)2 + H2","explanation":"Alkaline earth metals react to form hydroxide and hydrogen."}
+    ],
+    "9": [
+      {"prompt":"Hydrogen peroxide decomposes — skeleton.","canonicalAnswer":"2 H2O2 -> 2 H2O + O2","explanation":"Decomposition reaction."}
+    ],
+    "10": [
+      {"prompt":"Iron reacts with oxygen — skeleton.","canonicalAnswer":"4 Fe + 3 O2 -> 2 Fe2O3","explanation":"Synthesis of iron(III) oxide."}
+    ],
+    "11": [
+      {"prompt":"Methane combusts in oxygen — skeleton.","canonicalAnswer":"CH4 + 2 O2 -> CO2 + 2 H2O","explanation":"Complete combustion forms CO2 and water."}
+    ],
+    "12": [
+      {"prompt":"Ammonium dichromate decomposes — skeleton.","canonicalAnswer":"(NH4)2Cr2O7 -> Cr2O3 + N2 + 4 H2O","explanation":"Decomposition of ammonium dichromate."}
+    ]
+  }
+}
