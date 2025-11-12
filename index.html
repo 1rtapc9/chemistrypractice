@@ -5,14 +5,22 @@
 <title>Acid & Skeleton Practice</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
-body { font-family: Arial, sans-serif; padding: 20px; background: #f9f9f9; }
+/* ===== General Styling ===== */
+body { font-family: Arial, sans-serif; padding: 20px; background: #f9f9f9; transition: background 0.3s, color 0.3s; }
+body.dark { background: #1e1e1e; color: #ddd; }
 h1 { font-size: 1.8em; margin-bottom: 0.5em; }
-select, input, button { font-size: 1em; padding: 0.3em; margin: 0.2em 0; }
-.questionBox { background: #fff; padding: 15px; margin-top: 15px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+select, input, button { font-size: 1em; padding: 0.3em; margin: 0.2em 0; border-radius: 4px; border: 1px solid #aaa; }
+.questionBox { background: #fff; padding: 15px; margin-top: 15px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); transition: background 0.3s, color 0.3s; }
+body.dark .questionBox { background: #2e2e2e; color: #ddd; border: 1px solid #555; }
 .feedback-correct { color: green; font-weight: bold; margin-top: 10px; }
 .feedback-wrong { color: red; font-weight: bold; margin-top: 10px; }
 .small { font-size: 0.85em; color: #555; }
+body.dark .small { color: #aaa; }
 #nextBtn { margin-top: 10px; display: none; }
+#streakDisplay { margin-top: 5px; font-size: 0.9em; color: #333; }
+body.dark #streakDisplay { color: #ccc; }
+#mode, #answerInput { width: 100%; max-width: 400px; }
+#toggleTheme { margin-left: 10px; padding: 0.3em 0.5em; font-size: 0.9em; cursor: pointer; }
 </style>
 </head>
 <body>
@@ -23,9 +31,11 @@ select, input, button { font-size: 1em; padding: 0.3em; margin: 0.2em 0; }
   <option value="acid">Name acids</option>
   <option value="skeleton">Equation skeletons</option>
 </select>
+<button id="toggleTheme">Toggle Dark Mode</button>
 
 <div class="questionBox">
   <div id="gradeDisplay" class="small">Grade: 6</div>
+  <div id="streakDisplay" class="small">Streak: 0</div>
   <div id="questionPrompt" style="font-weight:600; margin-top:6px;">Loading question...</div>
   <input type="text" id="answerInput" placeholder="Type your answer">
   <button id="submitBtn">Submit</button>
@@ -34,46 +44,53 @@ select, input, button { font-size: 1em; padding: 0.3em; margin: 0.2em 0; }
 </div>
 
 <script>
+// ===== Question Bank =====
 const QUESTIONS = {
   acid: {
     6: [
-      { prompt: "Name HCl (aqueous).", canonicalAnswer: "hydrochloric acid", explanation: "Binary acid: 'hydro-' + root + '-ic acid'." },
-      { prompt: "Name HBr (aq).", canonicalAnswer: "hydrobromic acid", explanation: "HBr in water is hydrobromic acid." },
+      { prompt: "Name HCl (aq).", canonicalAnswer: "hydrochloric acid", explanation: "Binary acid: 'hydro-' + root + '-ic acid'." },
+      { prompt: "Name HBr (aq).", canonicalAnswer: "hydrobromic acid", explanation: "Binary acid: HBr in water is hydrobromic acid." },
       { prompt: "Name HI (aq).", canonicalAnswer: "hydroiodic acid", explanation: "Binary acids follow hydro-...-ic naming." }
-      // Add up to 50+ here...
+      // add more up to 50+
     ],
     7: [
       { prompt: "Name H2SO4 (aq).", canonicalAnswer: "sulfuric acid", explanation: "SO4^2- → sulfuric acid (-ic)." },
       { prompt: "Name HNO3 (aq).", canonicalAnswer: "nitric acid", explanation: "NO3^- → nitric acid (-ic)." }
-      // Add more...
+    ],
+    8: [
+      { prompt: "Name H3PO4 (aq).", canonicalAnswer: "phosphoric acid", explanation: "PO4^3- → phosphoric acid." }
     ]
-    // Continue up to grade 12
   },
   skeleton: {
     6: [
       { prompt: "Solid sodium reacts with water — skeleton.", canonicalAnswer: "2 Na + 2 H2O -> 2 NaOH + H2", explanation: "Alkali metals react to form hydroxide + hydrogen gas." },
       { prompt: "Hydrogen burns in oxygen — skeleton.", canonicalAnswer: "2 H2 + O2 -> 2 H2O", explanation: "Combustion produces water." }
-      // Add more...
     ],
     7: [
       { prompt: "Magnesium reacts with HCl — skeleton.", canonicalAnswer: "Mg + 2 HCl -> MgCl2 + H2", explanation: "Single displacement reaction." }
-      // Add more...
     ]
-    // Continue up to grade 12
   }
 };
 
-let grade = 6;
-let streak = 0;
+// ===== State =====
+let grade = parseInt(localStorage.getItem("grade") || "6");
+let streak = parseInt(localStorage.getItem("streak") || "0");
 let currentQuestion = null;
+
+// ===== Utilities =====
+function saveProgress() {
+  localStorage.setItem("grade", grade);
+  localStorage.setItem("streak", streak);
+}
 
 function pickRandomQuestion() {
   const mode = document.getElementById('mode').value;
-  const pool = QUESTIONS[mode][grade];
+  const pool = QUESTIONS[mode][grade] || [];
   currentQuestion = pool[Math.floor(Math.random() * pool.length)];
-  document.getElementById('questionPrompt').textContent = currentQuestion.prompt;
+  document.getElementById('questionPrompt').textContent = currentQuestion ? currentQuestion.prompt : "No question for this grade.";
   document.getElementById('feedback').innerHTML = '';
   document.getElementById('gradeDisplay').textContent = `Grade: ${grade}`;
+  document.getElementById('streakDisplay').textContent = `Streak: ${streak}`;
   document.getElementById('answerInput').value = '';
   document.getElementById('answerInput').disabled = false;
   document.getElementById('submitBtn').disabled = false;
@@ -83,6 +100,7 @@ function pickRandomQuestion() {
 function normalize(str) { return str.trim().toLowerCase(); }
 
 function submitAnswer() {
+  if(!currentQuestion) return;
   const answer = normalize(document.getElementById('answerInput').value);
   const correctAnswer = normalize(currentQuestion.canonicalAnswer);
   const isCorrect = answer === correctAnswer;
@@ -98,16 +116,20 @@ function submitAnswer() {
     feedbackDiv.innerHTML = `<div class="feedback-wrong">Not quite ❌</div><div class="small">Expected: ${currentQuestion.canonicalAnswer}</div><div class="small">Explanation: ${currentQuestion.explanation}</div>`;
   }
 
+  saveProgress();
   document.getElementById('answerInput').disabled = true;
   document.getElementById('submitBtn').disabled = true;
   document.getElementById('nextBtn').style.display = 'inline-block';
 }
 
+// ===== Event Listeners =====
 document.getElementById('submitBtn').addEventListener('click', submitAnswer);
 document.getElementById('answerInput').addEventListener('keydown', e => { if(e.key==='Enter'){submitAnswer();} });
-document.getElementById('mode').addEventListener('change', () => { grade = 6; streak = 0; pickRandomQuestion(); });
 document.getElementById('nextBtn').addEventListener('click', pickRandomQuestion);
+document.getElementById('mode').addEventListener('change', () => { grade = 6; streak = 0; saveProgress(); pickRandomQuestion(); });
+document.getElementById('toggleTheme').addEventListener('click', () => { document.body.classList.toggle('dark'); });
 
+// ===== Initial Load =====
 pickRandomQuestion();
 </script>
 </body>
