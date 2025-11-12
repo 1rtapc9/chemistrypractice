@@ -1,12 +1,13 @@
-const soundCorrect = new Audio(CONFIG.sound.correct);
-const soundWrong = new Audio(CONFIG.sound.wrong);
-
-function playSound(isCorrect){
-  if(!CONFIG.sound.enabled) return;
-  if(isCorrect) soundCorrect.play(); else soundWrong.play();
+const bgSection=document.getElementById("backgroundArticles");
+function spawnArticleTip(){
+  const article=ARTICLES[Math.floor(Math.random()*ARTICLES.length)];
+  const tip=document.createElement("div");
+  tip.classList.add("article-tip");
+  tip.textContent=article;
+  tip.style.left=Math.random()*80+"%";
+  tip.style.top=Math.random()*80+"%";
+  tip.style.animationDuration=(Math.random()*15+10)+"s";
+  bgSection.appendChild(tip);
+  setTimeout(()=>tip.remove(),25000);
 }
-
-document.getElementById("soundToggle").addEventListener("click", ()=>{
-  CONFIG.sound.enabled = !CONFIG.sound.enabled;
-  document.getElementById("soundToggle").textContent = CONFIG.sound.enabled ? "🔊" : "🔇";
-});
+setInterval(spawnArticleTip,4000);
