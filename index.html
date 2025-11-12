@@ -27,9 +27,12 @@
     <div id="progressBar"><div id="progressFill"></div></div>
     <p id="questionPrompt" class="prompt">Loading question...</p>
     <input type="text" id="answerInput" placeholder="Type your answer here...">
-    <button id="submitBtn">Submit</button>
+    <div class="button-group">
+      <button id="submitBtn">Submit</button>
+      <button id="nextBtn">Next Question</button>
+      <button id="skipBtn">Skip Question</button>
+    </div>
     <div id="feedback"></div>
-    <button id="nextBtn" style="display:none;">Next</button>
   </section>
 
   <section id="backgroundArticles"></section>
@@ -64,5 +67,7 @@
 <script src="decor.js"></script>
 <script src="stats.js"></script>
 <script src="analytics.js"></script>
+<script src="hints.js"></script>
+<script src="fun.js"></script>
 </body>
 </html>
