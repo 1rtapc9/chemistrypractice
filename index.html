@@ -2,136 +2,157 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Acid & Skeleton Practice</title>
+<title>Chemistry Practice | IXL Style</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<style>
-body { font-family: Arial, sans-serif; padding: 20px; background: #f9f9f9; transition: background 0.3s, color 0.3s; }
-body.dark { background: #1e1e1e; color: #ddd; }
-h1 { font-size: 1.8em; margin-bottom: 0.5em; }
-select, input, button { font-size: 1em; padding: 0.3em; margin: 0.2em 0; border-radius: 4px; border: 1px solid #aaa; }
-.questionBox { background: #fff; padding: 15px; margin-top: 15px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); transition: background 0.3s, color 0.3s; }
-body.dark .questionBox { background: #2e2e2e; color: #ddd; border: 1px solid #555; }
-.feedback-correct { color: green; font-weight: bold; margin-top: 10px; }
-.feedback-wrong { color: red; font-weight: bold; margin-top: 10px; }
-.small { font-size: 0.85em; color: #555; }
-body.dark .small { color: #aaa; }
-#nextBtn { margin-top: 10px; display: none; }
-#streakDisplay { margin-top: 5px; font-size: 0.9em; color: #333; }
-body.dark #streakDisplay { color: #ccc; }
-#mode, #answerInput { width: 100%; max-width: 400px; }
-#toggleTheme { margin-left: 10px; padding: 0.3em 0.5em; font-size: 0.9em; cursor: pointer; }
-</style>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
-<h1>Acid & Skeleton Practice</h1>
+<header>
+  <h1>Chemistry Practice</h1>
+  <button id="toggleTheme">🌙</button>
+</header>
 
-<label for="mode">Mode:</label>
-<select id="mode">
-  <option value="acid">Name acids</option>
-  <option value="skeleton">Equation skeletons</option>
-</select>
-<button id="toggleTheme">Toggle Dark Mode</button>
+<main>
+  <section class="control-panel">
+    <label for="mode">Select Topic:</label>
+    <select id="mode">
+      <option value="acid">Acids</option>
+      <option value="base">Bases</option>
+      <option value="ionic">Ionic Compounds</option>
+      <option value="molecular">Molecular Compounds</option>
+      <option value="hydrocarbon">Hydrocarbons</option>
+      <option value="skeleton">Equation Skeletons</option>
+    </select>
+  </section>
 
-<div class="questionBox">
-  <div id="gradeDisplay" class="small">Grade: 6</div>
-  <div id="streakDisplay" class="small">Streak: 0</div>
-  <div id="modeDisplay" class="small">Mode: Name acids</div>
-  <div id="questionPrompt" style="font-weight:600; margin-top:6px;">Loading question...</div>
-  <input type="text" id="answerInput" placeholder="Type your answer">
-  <button id="submitBtn">Submit</button>
-  <div id="feedback"></div>
-  <button id="nextBtn">Next Question</button>
-</div>
+  <section class="question-box">
+    <div class="status-bar">
+      <span id="gradeDisplay">Grade: 6</span>
+      <span id="streakDisplay">Streak: 0</span>
+    </div>
+
+    <div id="progressBar"><div id="progressFill"></div></div>
+
+    <p id="questionPrompt" class="prompt">Loading question...</p>
+    <input type="text" id="answerInput" placeholder="Type your answer...">
+    <button id="submitBtn">Submit</button>
+    <div id="feedback"></div>
+    <button id="nextBtn" style="display:none;">Next</button>
+  </section>
+</main>
+
+<footer>
+  <p>Made for Chemistry learners ⚗️ | Inspired by IXL</p>
+</footer>
 
 <script>
 let QUESTIONS = {};
 let grade = parseInt(localStorage.getItem("grade") || "6");
 let streak = parseInt(localStorage.getItem("streak") || "0");
+let progress = JSON.parse(localStorage.getItem("progress") || "{}");
 let currentQuestion = null;
+let usedQuestions = {};
 
 function saveProgress() {
   localStorage.setItem("grade", grade);
   localStorage.setItem("streak", streak);
+  localStorage.setItem("progress", JSON.stringify(progress));
 }
 
 function normalize(str) {
-  return str.trim().toLowerCase().replace(/\.$/, ""); // removes trailing period
+  return str.trim().toLowerCase().replace(/\.$/, "");
+}
+
+function availableQuestions(mode) {
+  const pool = QUESTIONS[mode] && QUESTIONS[mode][grade] ? QUESTIONS[mode][grade] : [];
+  return pool.filter(q => !usedQuestions[mode]?.[grade]?.includes(q.prompt));
 }
 
 function pickRandomQuestion() {
-  const mode = document.getElementById('mode').value;
-  let pool = QUESTIONS[mode] && QUESTIONS[mode][grade] ? QUESTIONS[mode][grade] : [];
-  
-  // if this grade has no questions, drop down until we find one
-  while (pool.length === 0 && grade > 6) {
-    grade--;
-    pool = QUESTIONS[mode] && QUESTIONS[mode][grade] ? QUESTIONS[mode][grade] : [];
-  }
+  const mode = document.getElementById("mode").value;
+  if (!usedQuestions[mode]) usedQuestions[mode] = {};
+  if (!usedQuestions[mode][grade]) usedQuestions[mode][grade] = [];
 
-  while (pool.length === 0 && grade < 12) {
-    grade++;
-    pool = QUESTIONS[mode] && QUESTIONS[mode][grade] ? QUESTIONS[mode][grade] : [];
+  let pool = availableQuestions(mode);
+
+  // Move to next grade if all questions in current grade are used
+  if (pool.length === 0) {
+    if (grade < 12) {
+      grade++;
+      saveProgress();
+      pool = availableQuestions(mode);
+    } else {
+      document.getElementById("questionPrompt").textContent = "You've mastered this topic!";
+      return;
+    }
   }
 
   if (pool.length === 0) {
-    document.getElementById('questionPrompt').textContent = "No questions available for this mode.";
+    document.getElementById("questionPrompt").textContent = "No questions available.";
     return;
   }
 
   currentQuestion = pool[Math.floor(Math.random() * pool.length)];
-  document.getElementById('questionPrompt').textContent = currentQuestion.prompt;
-  document.getElementById('feedback').innerHTML = '';
-  document.getElementById('gradeDisplay').textContent = `Grade: ${grade}`;
-  document.getElementById('streakDisplay').textContent = `Streak: ${streak}`;
-  document.getElementById('modeDisplay').textContent = `Mode: ${mode === 'acid' ? 'Name acids' : 'Equation skeletons'}`;
-  document.getElementById('answerInput').value = '';
-  document.getElementById('answerInput').disabled = false;
-  document.getElementById('submitBtn').disabled = false;
-  document.getElementById('nextBtn').style.display = 'none';
-  document.getElementById('answerInput').focus();
+  document.getElementById("questionPrompt").textContent = currentQuestion.prompt;
+  document.getElementById("feedback").innerHTML = "";
+  document.getElementById("gradeDisplay").textContent = `Grade: ${grade}`;
+  document.getElementById("streakDisplay").textContent = `Streak: ${streak}`;
+  document.getElementById("answerInput").value = "";
+  document.getElementById("submitBtn").disabled = false;
+  document.getElementById("nextBtn").style.display = "none";
+  updateProgressBar();
+}
+
+function updateProgressBar() {
+  const fill = document.getElementById("progressFill");
+  const percent = Math.min(100, streak * 10);
+  fill.style.width = percent + "%";
 }
 
 function submitAnswer() {
-  if(!currentQuestion) return;
-  const answer = normalize(document.getElementById('answerInput').value);
-  if(answer === "") {
-    alert("Please type an answer before submitting.");
-    return;
-  }
-  const correctAnswer = normalize(currentQuestion.canonicalAnswer);
-  const isCorrect = answer === correctAnswer;
+  if (!currentQuestion) return;
+  const input = normalize(document.getElementById("answerInput").value);
+  const correct = normalize(currentQuestion.canonicalAnswer);
+  if (!input) return alert("Please type an answer.");
 
-  const feedbackDiv = document.getElementById('feedback');
-  if (isCorrect) {
+  const feedback = document.getElementById("feedback");
+  const mode = document.getElementById("mode").value;
+
+  if (!usedQuestions[mode][grade].includes(currentQuestion.prompt))
+    usedQuestions[mode][grade].push(currentQuestion.prompt);
+
+  if (input === correct) {
+    feedback.innerHTML = `<div class="correct">✅ Correct!</div><div class="explanation">${currentQuestion.explanation}</div>`;
     streak++;
     grade = Math.min(12, grade + 1);
-    feedbackDiv.innerHTML = `<div class="feedback-correct">Correct! ✅</div><div class="small">Explanation: ${currentQuestion.explanation}</div>`;
   } else {
+    feedback.innerHTML = `<div class="wrong">❌ Not quite.</div><div class="explanation">Answer: ${currentQuestion.canonicalAnswer}</div><div class="explanation">${currentQuestion.explanation}</div>`;
     streak = Math.max(0, streak - 1);
     grade = Math.max(6, grade - 1);
-    feedbackDiv.innerHTML = `<div class="feedback-wrong">Not quite ❌</div><div class="small">Expected: ${currentQuestion.canonicalAnswer}</div><div class="small">Explanation: ${currentQuestion.explanation}</div>`;
   }
 
   saveProgress();
-  document.getElementById('answerInput').disabled = true;
-  document.getElementById('submitBtn').disabled = true;
-  document.getElementById('nextBtn').style.display = 'inline-block';
+  updateProgressBar();
+  document.getElementById("submitBtn").disabled = true;
+  document.getElementById("nextBtn").style.display = "inline-block";
 }
 
-document.getElementById('submitBtn').addEventListener('click', submitAnswer);
-document.getElementById('answerInput').addEventListener('keydown', e => { if(e.key==='Enter'){submitAnswer();} });
-document.getElementById('nextBtn').addEventListener('click', pickRandomQuestion);
-document.getElementById('mode').addEventListener('change', () => { grade = 6; streak = 0; saveProgress(); pickRandomQuestion(); });
-document.getElementById('toggleTheme').addEventListener('click', () => { document.body.classList.toggle('dark'); });
+document.getElementById("submitBtn").addEventListener("click", submitAnswer);
+document.getElementById("answerInput").addEventListener("keydown", e => {
+  if (e.key === "Enter") submitAnswer();
+});
+document.getElementById("nextBtn").addEventListener("click", pickRandomQuestion);
+document.getElementById("mode").addEventListener("change", () => {
+  grade = 6; streak = 0; usedQuestions = {}; saveProgress(); pickRandomQuestion();
+});
+document.getElementById("toggleTheme").addEventListener("click", () => {
+  document.body.classList.toggle("dark");
+});
 
-// Load external question file
-fetch('questions.json')
-  .then(response => response.json())
+fetch("questions.json")
+  .then(r => r.json())
   .then(data => { QUESTIONS = data; pickRandomQuestion(); })
-  .catch(err => {
-    document.getElementById('questionPrompt').textContent = "Error loading questions.";
-    console.error(err);
-  });
+  .catch(() => document.getElementById("questionPrompt").textContent = "Error loading questions.");
 </script>
 </body>
 </html>
