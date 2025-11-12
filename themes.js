@@ -5,9 +5,7 @@ Object.keys(CONFIG.themes).forEach(t=>{
 });
 const lastTheme = localStorage.getItem("theme") || "bright";
 themeSelect.value = lastTheme; applyTheme(lastTheme);
-
 themeSelect.addEventListener("change", e=>applyTheme(e.target.value));
-
 function applyTheme(themeName){
   const theme = CONFIG.themes[themeName];
   document.documentElement.style.setProperty('--primary', theme.primary);
