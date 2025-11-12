@@ -22,7 +22,6 @@ function pickRandomQuestion(){
   const mode=document.getElementById("mode").value;
   if(!usedQuestions[mode]) usedQuestions[mode]={};
   if(!usedQuestions[mode][grade]) usedQuestions[mode][grade]=[];
-
   let pool=availableQuestions(mode);
   let unused=pool.filter(q=>!usedQuestions[mode][grade].includes(q.prompt));
   if(unused.length===0){usedQuestions[mode][grade]=[]; unused=pool;}
@@ -34,7 +33,7 @@ function pickRandomQuestion(){
   document.getElementById("answerInput").value="";
   document.getElementById("submitBtn").disabled=false;
   document.getElementById("nextBtn").style.display="none";
-  if(CONFIG.qos.autoFocusNext) document.getElementById("answerInput").focus();
+  document.getElementById("answerInput").focus();
   updateProgressBar();
 }
 
@@ -47,66 +46,52 @@ function submitAnswer(){
   if(!currentQuestion) return;
   const input=document.getElementById("answerInput").value;
   if(!input) return alert("Please type an answer.");
-  const correct=normalize(currentQuestion.canonicalAnswer);
   const feedback=document.getElementById("feedback");
   const mode=document.getElementById("mode").value;
   usedQuestions[mode][grade].push(currentQuestion.prompt);
-  playSound(isCorrect); // from sounds.js
 
-  if(isCorrect && streak>0 && streak%5===0){
-  celebrateStreak(); // from animations.js
-}
-
-  const isCorrect=normalize(input)===correct;
+  let isCorrect=normalize(input)===normalize(currentQuestion.canonicalAnswer);
+  if(!isCorrect && CONFIG.qos.synonyms[currentQuestion.canonicalAnswer]){
+    isCorrect = CONFIG.qos.synonyms[currentQuestion.canonicalAnswer].some(s=>normalize(s)===normalize(input));
+  }
 
   if(isCorrect){
     feedback.innerHTML=`<div class="correct">✅ Correct!</div><div class="explanation">${currentQuestion.explanation}</div>`;
     streak++; grade=Math.min(CONFIG.maxGrade,grade+1);
-    spawnFloatingIcon(CONFIG.fun.emojis[Math.floor(Math.random()*CONFIG.fun.emojis.length)]);
+    playSound(true);
+    if(streak%5===0) celebrateStreak();
   }else{
     feedback.innerHTML=`<div class="wrong">❌ Not quite.</div><div class="explanation">Answer: ${currentQuestion.canonicalAnswer}</div><div class="explanation">${currentQuestion.explanation}</div>`;
     streak=Math.max(0,streak-1); grade=Math.max(CONFIG.minGrade,grade-1);
+    playSound(false);
   }
 
   saveProgress();
+  updateAnalytics(currentQuestion, isCorrect);
   document.getElementById("submitBtn").disabled=true;
   document.getElementById("nextBtn").style.display="inline-block";
 }
 
-function spawnFloatingIcon(emoji){
-  const icon=document.createElement("div");
-  icon.classList.add("floating-icon");
-  icon.textContent=emoji;
-  icon.style.left=Math.random()*90+"%";
-  icon.style.bottom="10px";
-  document.body.appendChild(icon);
-  setTimeout(()=>icon.remove(),2000);
-}
-
 document.getElementById("submitBtn").addEventListener("click",submitAnswer);
-document.getElementById("answerInput").addEventListener("keydown",e=>{if(e.key==="Enter" && CONFIG.qos.enterSubmits) submitAnswer();});
+document.getElementById("answerInput").addEventListener("keydown",e=>{if(e.key==="Enter") submitAnswer();});
 document.getElementById("nextBtn").addEventListener("click",pickRandomQuestion);
 document.getElementById("mode").addEventListener("change",()=>{
   grade=CONFIG.minGrade; streak=0; usedQuestions={}; saveProgress(); pickRandomQuestion();
 });
-document.getElementById("toggleTheme").addEventListener("click",()=>{document.body.classList.toggle("dark");});
+document.getElementById("statsBtn").addEventListener("click",()=>{document.getElementById("statsModal").style.display="block";});
+document.getElementById("analyticsBtn").addEventListener("click",()=>{document.getElementById("analyticsModal").style.display="block";});
 
 fetch("questions.json").then(r=>r.json()).then(data=>{
   QUESTIONS=data; initModeOptions();
   const lastTopic=localStorage.getItem("topic")||CONFIG.topics[0];
   document.getElementById("mode").value=lastTopic;
   pickRandomQuestion();
-  const lastTheme = localStorage.getItem("theme") || "bright";
-applyTheme(lastTheme); // from themes.js
 });
 
 function initModeOptions(){
-  const select=document.getElementById("mode");
-  select.innerHTML="";
+  const select=document.getElementById("mode"); select.innerHTML="";
   CONFIG.topics.forEach(t=>{
-    const opt=document.createElement("option");
-    opt.value=t;
-    opt.textContent=t.charAt(0).toUpperCase()+t.slice(1);
+    const opt=document.createElement("option"); opt.value=t; opt.textContent=t.charAt(0).toUpperCase()+t.slice(1);
     select.appendChild(opt);
   });
 }
