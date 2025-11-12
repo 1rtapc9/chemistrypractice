@@ -7,7 +7,11 @@ function normalize(str){
   return str;
 }
 
-function saveProgress(){localStorage.setItem("grade",grade);localStorage.setItem("streak",streak);}
+function saveProgress(){ 
+  localStorage.setItem("grade",grade);
+  localStorage.setItem("streak",streak);
+  localStorage.setItem("topic",document.getElementById("mode").value);
+}
 
 function availableQuestions(mode){
   let pool=QUESTIONS[mode]&&QUESTIONS[mode][grade]?QUESTIONS[mode][grade]:[];
@@ -37,8 +41,6 @@ function pickRandomQuestion(){
 function updateProgressBar(){
   const fill=document.getElementById("progressFill");
   fill.style.width=Math.min(100,streak*5)+"%";
-  fill.classList.add("streak-highlight");
-  setTimeout(()=>fill.classList.remove("streak-highlight"),800);
 }
 
 function submitAnswer(){
@@ -56,13 +58,12 @@ function submitAnswer(){
     feedback.innerHTML=`<div class="correct">✅ Correct!</div><div class="explanation">${currentQuestion.explanation}</div>`;
     streak++; grade=Math.min(CONFIG.maxGrade,grade+1);
     spawnFloatingIcon(CONFIG.fun.emojis[Math.floor(Math.random()*CONFIG.fun.emojis.length)]);
-    if(CONFIG.streak.milestoneConfetti.includes(streak)) spawnConfetti(30);
   }else{
     feedback.innerHTML=`<div class="wrong">❌ Not quite.</div><div class="explanation">Answer: ${currentQuestion.canonicalAnswer}</div><div class="explanation">${currentQuestion.explanation}</div>`;
     streak=Math.max(0,streak-1); grade=Math.max(CONFIG.minGrade,grade-1);
   }
 
-  saveProgress(); updateProgressBar();
+  saveProgress();
   document.getElementById("submitBtn").disabled=true;
   document.getElementById("nextBtn").style.display="inline-block";
 }
@@ -73,21 +74,8 @@ function spawnFloatingIcon(emoji){
   icon.textContent=emoji;
   icon.style.left=Math.random()*90+"%";
   icon.style.bottom="10px";
-  document.getElementById("funVisuals").appendChild(icon);
+  document.body.appendChild(icon);
   setTimeout(()=>icon.remove(),2000);
-}
-
-function spawnConfetti(count){
-  for(let i=0;i<count;i++){
-    const c=document.createElement("div");
-    c.classList.add("confetti-piece");
-    c.style.left=Math.random()*100+"%";
-    c.style.background=CONFIG.fun.confettiColors[Math.floor(Math.random()*CONFIG.fun.confettiColors.length)];
-    document.getElementById("funVisuals").appendChild(c);
-    const anim=Math.random()*2000+1000;
-    c.animate([{transform:'translateY(0)'},{transform:'translateY(-200px)'}],{duration:anim,iterations:1, easing:'ease-out'});
-    setTimeout(()=>c.remove(),anim);
-  }
 }
 
 document.getElementById("submitBtn").addEventListener("click",submitAnswer);
@@ -98,7 +86,12 @@ document.getElementById("mode").addEventListener("change",()=>{
 });
 document.getElementById("toggleTheme").addEventListener("click",()=>{document.body.classList.toggle("dark");});
 
-fetch("questions.json").then(r=>r.json()).then(data=>{QUESTIONS=data; initModeOptions(); pickRandomQuestion();});
+fetch("questions.json").then(r=>r.json()).then(data=>{
+  QUESTIONS=data; initModeOptions();
+  const lastTopic=localStorage.getItem("topic")||CONFIG.topics[0];
+  document.getElementById("mode").value=lastTopic;
+  pickRandomQuestion();
+});
 
 function initModeOptions(){
   const select=document.getElementById("mode");
