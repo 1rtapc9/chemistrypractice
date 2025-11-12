@@ -1,35 +1,33 @@
-let stats={correct:0,incorrect:0,topics:{}};
 const statsModal=document.getElementById("statsModal");
 const statsContent=document.getElementById("statsContent");
-document.getElementById("statsBtn").addEventListener("click",()=>{updateStats(); statsModal.style.display="block";});
-document.querySelector(".close").addEventListener("click",()=>{statsModal.style.display="none";});
-window.addEventListener("click",e=>{if(e.target===statsModal) statsModal.style.display="none";});
-
-function recordStat(mode,isCorrect){
-  stats[isCorrect?"correct":"incorrect"]++;
-  if(!stats.topics[mode]) stats.topics[mode]={correct:0,incorrect:0};
-  stats.topics[mode][isCorrect?"correct":"incorrect"]++;
-}
+statsModal.querySelector(".close").addEventListener("click",()=>statsModal.style.display="none");
 
 function updateStats(){
-  let html=`<p>Total Correct: ${stats.correct}</p><p>Total Incorrect: ${stats.incorrect}</p>`;
-  html+="<ul>";
-  for(let topic in stats.topics){
-    const t=stats.topics[topic];
-    const acc=t.correct+t.incorrect?Math.round(100*t.correct/(t.correct+t.incorrect))+"%":"N/A";
-    html+=`<li>${topic}: ${acc} accuracy (${t.correct}/${t.correct+t.incorrect})</li>`;
-  }
-  html+="</ul>";
-  statsContent.innerHTML=html;
+  const correct=localStorage.getItem("totalCorrect")||0;
+  const total=localStorage.getItem("totalAnswered")||0;
+  const streak=localStorage.getItem("streak")||0;
+  statsContent.innerHTML=`
+    <p>Total Questions Answered: ${total}</p>
+    <p>Total Correct: ${correct}</p>
+    <p>Current Streak: ${streak}</p>
+    <p>Accuracy: ${total>0?Math.round(correct/total*100):0}%</p>
+  `;
 }
 
-// Hook into logic.js
-const originalSubmitAnswer=submitAnswer;
-submitAnswer=function(){
-  const mode=document.getElementById("mode").value;
-  const input=document.getElementById("answerInput").value;
-  const correct=currentQuestion?currentQuestion.canonicalAnswer:"";
-  const isCorrect=(normalize(input)===normalize(correct));
-  recordStat(mode,isCorrect);
-  originalSubmitAnswer();
+document.getElementById("statsBtn").addEventListener("click",updateStats);
+
+function updateAnalytics(q,isCorrect){
+  let totalAnswered=parseInt(localStorage.getItem("totalAnswered")||0);
+  let totalCorrect=parseInt(localStorage.getItem("totalCorrect")||0);
+  totalAnswered++; if(isCorrect) totalCorrect++;
+  localStorage.setItem("totalAnswered",totalAnswered);
+  localStorage.setItem("totalCorrect",totalCorrect);
+
+  // Topic tracking
+  const topic=document.getElementById("mode").value;
+  let topicData=JSON.parse(localStorage.getItem("topicData")||"{}");
+  if(!topicData[topic]) topicData[topic]={correct:0,total:0};
+  topicData[topic].total++;
+  if(isCorrect) topicData[topic].correct++;
+  localStorage.setItem("topicData",JSON.stringify(topicData));
 }
