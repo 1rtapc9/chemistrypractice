@@ -13,5 +13,10 @@ const ARTICLES=[
   "Acids donate protons in reactions.",
   "Bases accept protons in reactions.",
   "The pH scale ranges from 0 to 14.",
-  "Hydrogen is the lightest element."
+  "Hydrogen is the lightest element.",
+  "Oxygen supports combustion.",
+  "Nitrogen makes up 78% of air.",
+  "Carbon forms four bonds.",
+  "Molecules are groups of atoms.",
+  "Atoms are the basic units of matter."
 ];
