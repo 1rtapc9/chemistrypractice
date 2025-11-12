@@ -4,23 +4,26 @@ body {
   color: #002b36;
   margin: 0;
   overflow-x: hidden;
+  transition: background 0.5s, color 0.5s;
 }
 header {
-  background: #00bfa6;
+  background: var(--primary,#00bfa6);
   color: white;
   padding: 10px 20px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  position: sticky;
-  top: 0;
-  z-index: 10;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  position:sticky;
+  top:0;
+  z-index:10;
 }
-header h1 { margin:0; font-size:1.6em; }
-.header-controls { display:flex; align-items:center; gap:10px; }
+header h1 { margin:0; font-size:1.6em; position:relative; }
+.header-animated { animation:underlinePulse 2s infinite; }
+@keyframes underlinePulse { 0%,100%{text-decoration:underline;} 50%{text-decoration:none;} }
+
 main { display:flex; flex-direction:column; align-items:center; padding:20px; min-height:80vh; position:relative;}
 .question-box {
-  background: white;
+  background:white;
   padding:20px;
   border-radius:12px;
   box-shadow:0 6px 15px rgba(0,0,0,0.15);
@@ -46,7 +49,12 @@ footer { margin-top:30px; font-size:0.8em; color:#555; text-align:center; }
 .modal { display:none; position:fixed; z-index:50; left:0; top:0; width:100%; height:100%; overflow:auto; background: rgba(0,0,0,0.4);}
 .modal-content { background:white; margin:10% auto; padding:20px; border-radius:12px; width:80%; max-width:500px; text-align:center;}
 .close { float:right; font-size:1.5em; cursor:pointer;}
-.dark { background: #002b36; color: #e0f7f4; }
-.dark header { background:#00796b; }
-.dark .question-box { background:#004d40; color:#e0f7f4; border:1px solid #00796b; }
-.bubble { position:absolute; border-radius:50%; pointer-events:none; z-index:0; animation:floatUp linear infinite; }
+.dark { background: var(--darkSecondary,#002b36); color: #e0f7f4; }
+.dark header { background: var(--darkPrimary,#00796b); }
+.dark .question-box { background:#004d40; color:#e0f7f4; border:1px solid var(--darkPrimary,#00796b); }
+.bubble { position:absolute; border-radius:50%; pointer-events:none; z-index:0; opacity:0.6; }
+.floating-icon { position:absolute; font-size:1.2em; animation:floatUp 2s ease-out forwards; }
+@keyframes floatUp { 0%{transform:translateY(0);} 100%{transform:translateY(-120px); opacity:0;} }
+.confetti-piece { position:absolute; width:6px; height:6px; background:#00bfa6; border-radius:50%; pointer-events:none; }
+.streak-highlight { animation:streakGlow 1s ease-in-out; }
+@keyframes streakGlow { 0%,100%{box-shadow:none;} 50%{box-shadow:0 0 10px #00bfa6;} }
