@@ -5,7 +5,6 @@
 <title>Acid & Skeleton Practice</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
-/* ===== General Styling ===== */
 body { font-family: Arial, sans-serif; padding: 20px; background: #f9f9f9; transition: background 0.3s, color 0.3s; }
 body.dark { background: #1e1e1e; color: #ddd; }
 h1 { font-size: 1.8em; margin-bottom: 0.5em; }
@@ -36,6 +35,7 @@ body.dark #streakDisplay { color: #ccc; }
 <div class="questionBox">
   <div id="gradeDisplay" class="small">Grade: 6</div>
   <div id="streakDisplay" class="small">Streak: 0</div>
+  <div id="modeDisplay" class="small">Mode: Name acids</div>
   <div id="questionPrompt" style="font-weight:600; margin-top:6px;">Loading question...</div>
   <input type="text" id="answerInput" placeholder="Type your answer">
   <button id="submitBtn">Submit</button>
@@ -51,14 +51,10 @@ const QUESTIONS = {
       { prompt: "Name HCl (aq).", canonicalAnswer: "hydrochloric acid", explanation: "Binary acid: 'hydro-' + root + '-ic acid'." },
       { prompt: "Name HBr (aq).", canonicalAnswer: "hydrobromic acid", explanation: "Binary acid: HBr in water is hydrobromic acid." },
       { prompt: "Name HI (aq).", canonicalAnswer: "hydroiodic acid", explanation: "Binary acids follow hydro-...-ic naming." }
-      // add more up to 50+
     ],
     7: [
       { prompt: "Name H2SO4 (aq).", canonicalAnswer: "sulfuric acid", explanation: "SO4^2- → sulfuric acid (-ic)." },
       { prompt: "Name HNO3 (aq).", canonicalAnswer: "nitric acid", explanation: "NO3^- → nitric acid (-ic)." }
-    ],
-    8: [
-      { prompt: "Name H3PO4 (aq).", canonicalAnswer: "phosphoric acid", explanation: "PO4^3- → phosphoric acid." }
     ]
   },
   skeleton: {
@@ -86,15 +82,23 @@ function saveProgress() {
 function pickRandomQuestion() {
   const mode = document.getElementById('mode').value;
   const pool = QUESTIONS[mode][grade] || [];
+  if(pool.length === 0){
+    currentQuestion = null;
+    document.getElementById('questionPrompt').textContent = "No questions for this grade.";
+    document.getElementById('feedback').innerHTML = '';
+    return;
+  }
   currentQuestion = pool[Math.floor(Math.random() * pool.length)];
-  document.getElementById('questionPrompt').textContent = currentQuestion ? currentQuestion.prompt : "No question for this grade.";
+  document.getElementById('questionPrompt').textContent = currentQuestion.prompt;
   document.getElementById('feedback').innerHTML = '';
   document.getElementById('gradeDisplay').textContent = `Grade: ${grade}`;
   document.getElementById('streakDisplay').textContent = `Streak: ${streak}`;
+  document.getElementById('modeDisplay').textContent = `Mode: ${mode === 'acid' ? 'Name acids' : 'Equation skeletons'}`;
   document.getElementById('answerInput').value = '';
   document.getElementById('answerInput').disabled = false;
   document.getElementById('submitBtn').disabled = false;
   document.getElementById('nextBtn').style.display = 'none';
+  document.getElementById('answerInput').focus();
 }
 
 function normalize(str) { return str.trim().toLowerCase(); }
@@ -102,6 +106,10 @@ function normalize(str) { return str.trim().toLowerCase(); }
 function submitAnswer() {
   if(!currentQuestion) return;
   const answer = normalize(document.getElementById('answerInput').value);
+  if(answer === "") {
+    alert("Please type an answer before submitting.");
+    return;
+  }
   const correctAnswer = normalize(currentQuestion.canonicalAnswer);
   const isCorrect = answer === correctAnswer;
 
