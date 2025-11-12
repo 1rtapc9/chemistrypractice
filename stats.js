@@ -13,7 +13,6 @@ function updateStats(){
     <p>Accuracy: ${total>0?Math.round(correct/total*100):0}%</p>
   `;
 }
-
 document.getElementById("statsBtn").addEventListener("click",updateStats);
 
 function updateAnalytics(q,isCorrect){
@@ -23,7 +22,6 @@ function updateAnalytics(q,isCorrect){
   localStorage.setItem("totalAnswered",totalAnswered);
   localStorage.setItem("totalCorrect",totalCorrect);
 
-  // Topic tracking
   const topic=document.getElementById("mode").value;
   let topicData=JSON.parse(localStorage.getItem("topicData")||"{}");
   if(!topicData[topic]) topicData[topic]={correct:0,total:0};
