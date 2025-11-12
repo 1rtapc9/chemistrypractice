@@ -7,10 +7,12 @@ function spawnFloatingMolecule(){
   document.body.appendChild(mol);
   setTimeout(()=>mol.remove(),4000);
 }
+
 function celebrateStreak(){
   for(let i=0;i<10;i++) spawnFloatingMolecule();
   spawnConfetti(30);
 }
+
 function spawnConfetti(count){
   for(let i=0;i<count;i++){
     const conf = document.createElement("div");
