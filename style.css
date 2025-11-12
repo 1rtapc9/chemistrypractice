@@ -45,3 +45,4 @@ footer { margin-top:30px; font-size:0.8em; color:#555; text-align:center; }
 .dark { background: #002b36; color: #e0f7f4; }
 .dark header { background:#00796b; }
 .dark .question-box { background:#004d40; color:#e0f7f4; border:1px solid #00796b; }
+.bubble{position:absolute;border-radius:50%;pointer-events:none;z-index:0;animation:floatUp linear infinite;}
