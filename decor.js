@@ -1,28 +1,15 @@
-const funVisuals=document.getElementById("funVisuals");
+const bgSection=document.getElementById("backgroundArticles");
 
-function createBubble(){
-  const b=document.createElement("div");
-  b.classList.add("bubble");
-  const size=Math.random()*(CONFIG.bubble.maxSize-CONFIG.bubble.minSize)+CONFIG.bubble.minSize;
-  b.style.width=b.style.height=size+"px";
-  b.style.left=Math.random()*100+"%";
-  b.style.bottom="-50px";
-  const speed=Math.random()*(CONFIG.bubble.maxSpeed-CONFIG.bubble.minSpeed)+CONFIG.bubble.minSpeed;
-  funVisuals.appendChild(b);
-
-  let pos=-50;
-  function animate(){
-    pos+=speed;
-    b.style.bottom=pos+"px";
-    if(pos<window.innerHeight+50) requestAnimationFrame(animate);
-    else b.remove();
-  }
-  animate();
+function spawnArticleTip(){
+  const article=ARTICLES[Math.floor(Math.random()*ARTICLES.length)];
+  const tip=document.createElement("div");
+  tip.classList.add("article-tip");
+  tip.textContent=article;
+  tip.style.left=Math.random()*80+"%";
+  tip.style.top=Math.random()*80+"%";
+  tip.style.animationDuration=(Math.random()*15+10)+"s";
+  bgSection.appendChild(tip);
+  setTimeout(()=>tip.remove(),25000);
 }
 
-setInterval(createBubble, CONFIG.bubble.spawnInterval);
-
-document.querySelectorAll(".question-box").forEach(box=>{
-  box.addEventListener("mouseenter",()=>box.style.transform="scale(1.02)");
-  box.addEventListener("mouseleave",()=>box.style.transform="scale(1)");
-});
+setInterval(spawnArticleTip,5000);
