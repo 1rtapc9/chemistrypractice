@@ -44,50 +44,40 @@ body.dark #streakDisplay { color: #ccc; }
 </div>
 
 <script>
-// ===== Question Bank =====
-const QUESTIONS = {
-  acid: {
-    6: [
-      { prompt: "Name HCl (aq).", canonicalAnswer: "hydrochloric acid", explanation: "Binary acid: 'hydro-' + root + '-ic acid'." },
-      { prompt: "Name HBr (aq).", canonicalAnswer: "hydrobromic acid", explanation: "Binary acid: HBr in water is hydrobromic acid." },
-      { prompt: "Name HI (aq).", canonicalAnswer: "hydroiodic acid", explanation: "Binary acids follow hydro-...-ic naming." }
-    ],
-    7: [
-      { prompt: "Name H2SO4 (aq).", canonicalAnswer: "sulfuric acid", explanation: "SO4^2- → sulfuric acid (-ic)." },
-      { prompt: "Name HNO3 (aq).", canonicalAnswer: "nitric acid", explanation: "NO3^- → nitric acid (-ic)." }
-    ]
-  },
-  skeleton: {
-    6: [
-      { prompt: "Solid sodium reacts with water — skeleton.", canonicalAnswer: "2 Na + 2 H2O -> 2 NaOH + H2", explanation: "Alkali metals react to form hydroxide + hydrogen gas." },
-      { prompt: "Hydrogen burns in oxygen — skeleton.", canonicalAnswer: "2 H2 + O2 -> 2 H2O", explanation: "Combustion produces water." }
-    ],
-    7: [
-      { prompt: "Magnesium reacts with HCl — skeleton.", canonicalAnswer: "Mg + 2 HCl -> MgCl2 + H2", explanation: "Single displacement reaction." }
-    ]
-  }
-};
-
-// ===== State =====
+let QUESTIONS = {};
 let grade = parseInt(localStorage.getItem("grade") || "6");
 let streak = parseInt(localStorage.getItem("streak") || "0");
 let currentQuestion = null;
 
-// ===== Utilities =====
 function saveProgress() {
   localStorage.setItem("grade", grade);
   localStorage.setItem("streak", streak);
 }
 
+function normalize(str) {
+  return str.trim().toLowerCase().replace(/\.$/, ""); // removes trailing period
+}
+
 function pickRandomQuestion() {
   const mode = document.getElementById('mode').value;
-  const pool = QUESTIONS[mode][grade] || [];
-  if(pool.length === 0){
-    currentQuestion = null;
-    document.getElementById('questionPrompt').textContent = "No questions for this grade.";
-    document.getElementById('feedback').innerHTML = '';
+  let pool = QUESTIONS[mode] && QUESTIONS[mode][grade] ? QUESTIONS[mode][grade] : [];
+  
+  // if this grade has no questions, drop down until we find one
+  while (pool.length === 0 && grade > 6) {
+    grade--;
+    pool = QUESTIONS[mode] && QUESTIONS[mode][grade] ? QUESTIONS[mode][grade] : [];
+  }
+
+  while (pool.length === 0 && grade < 12) {
+    grade++;
+    pool = QUESTIONS[mode] && QUESTIONS[mode][grade] ? QUESTIONS[mode][grade] : [];
+  }
+
+  if (pool.length === 0) {
+    document.getElementById('questionPrompt').textContent = "No questions available for this mode.";
     return;
   }
+
   currentQuestion = pool[Math.floor(Math.random() * pool.length)];
   document.getElementById('questionPrompt').textContent = currentQuestion.prompt;
   document.getElementById('feedback').innerHTML = '';
@@ -100,8 +90,6 @@ function pickRandomQuestion() {
   document.getElementById('nextBtn').style.display = 'none';
   document.getElementById('answerInput').focus();
 }
-
-function normalize(str) { return str.trim().toLowerCase(); }
 
 function submitAnswer() {
   if(!currentQuestion) return;
@@ -130,15 +118,20 @@ function submitAnswer() {
   document.getElementById('nextBtn').style.display = 'inline-block';
 }
 
-// ===== Event Listeners =====
 document.getElementById('submitBtn').addEventListener('click', submitAnswer);
 document.getElementById('answerInput').addEventListener('keydown', e => { if(e.key==='Enter'){submitAnswer();} });
 document.getElementById('nextBtn').addEventListener('click', pickRandomQuestion);
 document.getElementById('mode').addEventListener('change', () => { grade = 6; streak = 0; saveProgress(); pickRandomQuestion(); });
 document.getElementById('toggleTheme').addEventListener('click', () => { document.body.classList.toggle('dark'); });
 
-// ===== Initial Load =====
-pickRandomQuestion();
+// Load external question file
+fetch('questions.json')
+  .then(response => response.json())
+  .then(data => { QUESTIONS = data; pickRandomQuestion(); })
+  .catch(err => {
+    document.getElementById('questionPrompt').textContent = "Error loading questions.";
+    console.error(err);
+  });
 </script>
 </body>
 </html>
