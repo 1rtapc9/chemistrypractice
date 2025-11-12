@@ -29,8 +29,7 @@ submitAnswer=function(){
   const mode=document.getElementById("mode").value;
   const input=document.getElementById("answerInput").value;
   const correct=currentQuestion?currentQuestion.canonicalAnswer:"";
-  const isCorrect=(input.trim().toLowerCase().replace(/[.\s]+$/,"")===correct.trim().toLowerCase().replace(/[.\s]+$/,""));
+  const isCorrect=(normalize(input)===normalize(correct));
   recordStat(mode,isCorrect);
   originalSubmitAnswer();
 }
-
