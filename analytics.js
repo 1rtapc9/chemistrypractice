@@ -13,6 +13,4 @@ function displayAnalytics(){
   html+="</ul>";
   analyticsContent.innerHTML=`<p>Current Streak: ${dailyStreak}</p>${html}`;
 }
-
 document.getElementById("analyticsBtn").addEventListener("click",displayAnalytics);
-function updateAnalytics(q,isCorrect){ stats.js.updateAnalytics(q,isCorrect); } // reuse stats logic
