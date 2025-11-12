@@ -1,4 +1,3 @@
-// Global configuration for Chemistry Practice site
 const CONFIG = {
   minGrade: 6,
   maxGrade: 12,
@@ -12,6 +11,7 @@ const CONFIG = {
     ignoreTrailingPunctuation:true,
     autoFocusNext:true,
     enterSubmits:true,
+    showHints:true,
     synonyms:{
       "H2O":["water"],
       "CO2":["carbon dioxide"],
