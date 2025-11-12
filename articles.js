@@ -1,5 +1,5 @@
 const ARTICLES=[
-  "Did you know water expands when frozen?",
+  "Water expands when frozen.",
   "Carbon dioxide is a greenhouse gas.",
   "The periodic table was first published in 1869.",
   "Acids turn blue litmus red.",
