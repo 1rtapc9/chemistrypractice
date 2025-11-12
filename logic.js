@@ -32,7 +32,8 @@ function pickRandomQuestion(){
   document.getElementById("streakDisplay").textContent=`Streak: ${streak}`;
   document.getElementById("answerInput").value="";
   document.getElementById("submitBtn").disabled=false;
-  document.getElementById("nextBtn").style.display="none";
+  document.getElementById("nextBtn").style.display="inline-block";
+  document.getElementById("skipBtn").style.display="inline-block";
   document.getElementById("answerInput").focus();
   updateProgressBar();
 }
@@ -66,15 +67,19 @@ function submitAnswer(){
     playSound(false);
   }
 
+  if(CONFIG.qos.showHints && currentQuestion.hint) showHint(currentQuestion);
+
   saveProgress();
   updateAnalytics(currentQuestion, isCorrect);
   document.getElementById("submitBtn").disabled=true;
-  document.getElementById("nextBtn").style.display="inline-block";
 }
-
 document.getElementById("submitBtn").addEventListener("click",submitAnswer);
 document.getElementById("answerInput").addEventListener("keydown",e=>{if(e.key==="Enter") submitAnswer();});
 document.getElementById("nextBtn").addEventListener("click",pickRandomQuestion);
+document.getElementById("skipBtn").addEventListener("click",()=>{
+  usedQuestions[document.getElementById("mode").value][grade].push(currentQuestion.prompt);
+  pickRandomQuestion();
+});
 document.getElementById("mode").addEventListener("change",()=>{
   grade=CONFIG.minGrade; streak=0; usedQuestions={}; saveProgress(); pickRandomQuestion();
 });
