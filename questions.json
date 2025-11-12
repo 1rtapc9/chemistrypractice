@@ -1,15 +1,114 @@
 {
-  "acid": { "6":[{"prompt":"Name HCl (aq).","canonicalAnswer":"hydrochloric acid","explanation":"Binary acid: hydro- + root + -ic acid."}] },
-  "base": { "6":[{"prompt":"Name NaOH.","canonicalAnswer":"sodium hydroxide","explanation":"Na+ and OH- form sodium hydroxide."}] },
-  "ionic": { "6":[{"prompt":"Name NaCl.","canonicalAnswer":"sodium chloride","explanation":"Ionic compound of Na+ and Cl-."}] },
-  "molecular": { "6":[{"prompt":"Name CO2.","canonicalAnswer":"carbon dioxide","explanation":"Molecular compound, two oxygens."}] },
-  "hydrocarbon": { "6":[{"prompt":"Name CH4.","canonicalAnswer":"methane","explanation":"1 carbon → methane."}] },
-  "word": {
-    "6":[
-      {"prompt":"Carbon Dioxide","canonicalAnswer":"CO2","explanation":"C=carbon, O2=two oxygens."},
-      {"prompt":"Water","canonicalAnswer":"H2O","explanation":"H2O is water."},
-      {"prompt":"Sodium Chloride","canonicalAnswer":"NaCl","explanation":"Na+ Cl- → table salt."}
+  "acid": {
+    "6": [
+      {"prompt":"Name HCl (aq).","canonicalAnswer":"hydrochloric acid","explanation":"Binary acid: hydro- + root + -ic acid."},
+      {"prompt":"Name HBr (aq).","canonicalAnswer":"hydrobromic acid","explanation":"Binary acid: hydro- + root + -ic acid."},
+      {"prompt":"Name HI (aq).","canonicalAnswer":"hydroiodic acid","explanation":"Binary acid: hydro- + root + -ic acid."},
+      {"prompt":"Name HF (aq).","canonicalAnswer":"hydrofluoric acid","explanation":"Binary acid: hydro- + root + -ic acid."},
+      {"prompt":"Name HCN (aq).","canonicalAnswer":"hydrocyanic acid","explanation":"Binary acid: hydro- + cyanide → hydrocyanic acid."},
+      {"prompt":"Name H2S (aq).","canonicalAnswer":"hydrosulfuric acid","explanation":"Binary acid: hydro- + sulfur → hydrosulfuric acid."}
+    ],
+    "7":[
+      {"prompt":"Name H2SO4 (aq).","canonicalAnswer":"sulfuric acid","explanation":"Polyatomic ion SO4 → -ic acid."},
+      {"prompt":"Name H2SO3 (aq).","canonicalAnswer":"sulfurous acid","explanation":"Polyatomic ion SO3 → -ous acid."},
+      {"prompt":"Name HNO3 (aq).","canonicalAnswer":"nitric acid","explanation":"Polyatomic ion NO3 → -ic acid."},
+      {"prompt":"Name HNO2 (aq).","canonicalAnswer":"nitrous acid","explanation":"Polyatomic ion NO2 → -ous acid."},
+      {"prompt":"Name H3PO4 (aq).","canonicalAnswer":"phosphoric acid","explanation":"PO4 → -ic acid."},
+      {"prompt":"Name H3PO3 (aq).","canonicalAnswer":"phosphorous acid","explanation":"PO3 → -ous acid."}
+    ],
+    "8":[
+      {"prompt":"Name HClO4 (aq).","canonicalAnswer":"perchloric acid","explanation":"ClO4 → perchloric acid."},
+      {"prompt":"Name HClO3 (aq).","canonicalAnswer":"chloric acid","explanation":"ClO3 → chloric acid."},
+      {"prompt":"Name HClO2 (aq).","canonicalAnswer":"chlorous acid","explanation":"ClO2 → chlorous acid."},
+      {"prompt":"Name HClO (aq).","canonicalAnswer":"hypochlorous acid","explanation":"ClO → hypochlorous acid."},
+      {"prompt":"Name HMnO4 (aq).","canonicalAnswer":"permanganic acid","explanation":"MnO4 → permanganic acid."},
+      {"prompt":"Name H2CrO4 (aq).","canonicalAnswer":"chromic acid","explanation":"CrO4 → chromic acid."}
+    ],
+    "9":[
+      {"prompt":"Name H2C2O4 (aq).","canonicalAnswer":"oxalic acid","explanation":"C2O4 → oxalic acid."},
+      {"prompt":"Name H2CO3 (aq).","canonicalAnswer":"carbonic acid","explanation":"CO3 → carbonic acid."},
+      {"prompt":"Name H2SeO4 (aq).","canonicalAnswer":"selenic acid","explanation":"SeO4 → selenic acid."},
+      {"prompt":"Name H2SeO3 (aq).","canonicalAnswer":"selurous acid","explanation":"SeO3 → selenous acid."},
+      {"prompt":"Name HIO3 (aq).","canonicalAnswer":"iodic acid","explanation":"IO3 → iodic acid."},
+      {"prompt":"Name HIO2 (aq).","canonicalAnswer":"iodous acid","explanation":"IO2 → iodous acid."}
+    ],
+    "10":[
+      {"prompt":"Name H2TeO4 (aq).","canonicalAnswer":"telleric acid","explanation":"TeO4 → telleric acid."},
+      {"prompt":"Name H2TeO3 (aq).","canonicalAnswer":"tellurous acid","explanation":"TeO3 → tellurous acid."},
+      {"prompt":"Name H2SO5 (aq).","canonicalAnswer":"peroxysulfuric acid","explanation":"SO5 → peroxysulfuric acid."},
+      {"prompt":"Name H2S2O7 (aq).","canonicalAnswer":"pyrosulfuric acid","explanation":"S2O7 → pyrosulfuric acid."},
+      {"prompt":"Name H2SiO3 (aq).","canonicalAnswer":"silicic acid","explanation":"SiO3 → silicic acid."},
+      {"prompt":"Name H2B4O7 (aq).","canonicalAnswer":"tetraboric acid","explanation":"B4O7 → tetraboric acid."}
+    ],
+    "11":[
+      {"prompt":"Name HClO3 (aq).","canonicalAnswer":"chloric acid","explanation":"ClO3 → chloric acid."},
+      {"prompt":"Name HClO2 (aq).","canonicalAnswer":"chlorous acid","explanation":"ClO2 → chlorous acid."},
+      {"prompt":"Name HBrO3 (aq).","canonicalAnswer":"bromic acid","explanation":"BrO3 → bromic acid."},
+      {"prompt":"Name HBrO2 (aq).","canonicalAnswer":"bromous acid","explanation":"BrO2 → bromous acid."},
+      {"prompt":"Name HIO3 (aq).","canonicalAnswer":"iodic acid","explanation":"IO3 → iodic acid."},
+      {"prompt":"Name HIO2 (aq).","canonicalAnswer":"iodous acid","explanation":"IO2 → iodous acid."}
+    ],
+    "12":[
+      {"prompt":"Name H2SeO4 (aq).","canonicalAnswer":"selenic acid","explanation":"SeO4 → selenic acid."},
+      {"prompt":"Name H2SeO3 (aq).","canonicalAnswer":"selenous acid","explanation":"SeO3 → selenous acid."},
+      {"prompt":"Name H2TeO4 (aq).","canonicalAnswer":"telluric acid","explanation":"TeO4 → telluric acid."},
+      {"prompt":"Name H2TeO3 (aq).","canonicalAnswer":"tellurous acid","explanation":"TeO3 → tellurous acid."},
+      {"prompt":"Name H2CO3 (aq).","canonicalAnswer":"carbonic acid","explanation":"CO3 → carbonic acid."},
+      {"prompt":"Name H2SO4 (aq).","canonicalAnswer":"sulfuric acid","explanation":"SO4 → sulfuric acid."}
     ]
   },
-  "skeleton": { "6":[{"prompt":"Hydrogen burns in oxygen.","canonicalAnswer":"2 h2 + o2 -> 2 h2o","explanation":"Combustion produces water."}] }
+  "base": {
+    "6":[{"prompt":"Name NaOH.","canonicalAnswer":"sodium hydroxide","explanation":"Na+ and OH- form sodium hydroxide."},{"prompt":"Name KOH.","canonicalAnswer":"potassium hydroxide","explanation":"K+ and OH- form potassium hydroxide."},{"prompt":"Name Ca(OH)2.","canonicalAnswer":"calcium hydroxide","explanation":"Ca2+ and OH- form calcium hydroxide."}],
+    "7":[{"prompt":"Name Mg(OH)2.","canonicalAnswer":"magnesium hydroxide","explanation":"Mg2+ + 2OH- → Mg(OH)2"}],
+    "8":[{"prompt":"Name NH4OH.","canonicalAnswer":"ammonium hydroxide","explanation":"NH4+ + OH- → ammonium hydroxide"}],
+    "9":[{"prompt":"Name Al(OH)3.","canonicalAnswer":"aluminum hydroxide","explanation":"Al3+ + 3OH- → Al(OH)3"}],
+    "10":[{"prompt":"Name Ba(OH)2.","canonicalAnswer":"barium hydroxide","explanation":"Ba2+ + 2OH- → Ba(OH)2"}],
+    "11":[{"prompt":"Name Sr(OH)2.","canonicalAnswer":"strontium hydroxide","explanation":"Sr2+ + 2OH- → Sr(OH)2"}],
+    "12":[{"prompt":"Name Fe(OH)3.","canonicalAnswer":"ferric hydroxide","explanation":"Fe3+ + 3OH- → Fe(OH)3"}]
+  },
+  "ionic": {
+    "6":[{"prompt":"Name NaCl.","canonicalAnswer":"sodium chloride","explanation":"Na+ Cl- → table salt"},{"prompt":"Name KBr.","canonicalAnswer":"potassium bromide","explanation":"K+ Br- → potassium bromide"}],
+    "7":[{"prompt":"Name CaCl2.","canonicalAnswer":"calcium chloride","explanation":"Ca2+ Cl- → CaCl2"}],
+    "8":[{"prompt":"Name MgF2.","canonicalAnswer":"magnesium fluoride","explanation":"Mg2+ F- → MgF2"}],
+    "9":[{"prompt":"Name Al2O3.","canonicalAnswer":"aluminum oxide","explanation":"Al3+ O2- → Al2O3"}],
+    "10":[{"prompt":"Name BaS.","canonicalAnswer":"barium sulfide","explanation":"Ba2+ S2- → BaS"}],
+    "11":[{"prompt":"Name Fe2O3.","canonicalAnswer":"iron(III) oxide","explanation":"Fe3+ O2- → Fe2O3"}],
+    "12":[{"prompt":"Name CuCl2.","canonicalAnswer":"copper(II) chloride","explanation":"Cu2+ Cl- → CuCl2"}]
+  },
+  "molecular": {
+    "6":[{"prompt":"Name CO2.","canonicalAnswer":"carbon dioxide","explanation":"CO2 is carbon dioxide."},{"prompt":"Name H2O.","canonicalAnswer":"water","explanation":"H2O is water"}],
+    "7":[{"prompt":"Name N2O.","canonicalAnswer":"dinitrogen monoxide","explanation":"N2O → dinitrogen monoxide"}],
+    "8":[{"prompt":"Name NO2.","canonicalAnswer":"nitrogen dioxide","explanation":"NO2 → nitrogen dioxide"}],
+    "9":[{"prompt":"Name SO2.","canonicalAnswer":"sulfur dioxide","explanation":"SO2 → sulfur dioxide"}],
+    "10":[{"prompt":"Name P2O5.","canonicalAnswer":"diphosphorus pentoxide","explanation":"P2O5 → diphosphorus pentoxide"}],
+    "11":[{"prompt":"Name N2O5.","canonicalAnswer":"dinitrogen pentoxide","explanation":"N2O5 → dinitrogen pentoxide"}],
+    "12":[{"prompt":"Name Cl2O7.","canonicalAnswer":"dichlorine heptoxide","explanation":"Cl2O7 → dichlorine heptoxide"}]
+  },
+  "hydrocarbon": {
+    "6":[{"prompt":"Name CH4.","canonicalAnswer":"methane","explanation":"1 carbon → methane"}],
+    "7":[{"prompt":"Name C2H6.","canonicalAnswer":"ethane","explanation":"2 carbons → ethane"}],
+    "8":[{"prompt":"Name C3H8.","canonicalAnswer":"propane","explanation":"3 carbons → propane"}],
+    "9":[{"prompt":"Name C4H10.","canonicalAnswer":"butane","explanation":"4 carbons → butane"}],
+    "10":[{"prompt":"Name C2H4.","canonicalAnswer":"ethene","explanation":"Alkene → C2H4 ethene"}],
+    "11":[{"prompt":"Name C3H6.","canonicalAnswer":"propene","explanation":"Alkene → C3H6 propene"}],
+    "12":[{"prompt":"Name C2H2.","canonicalAnswer":"ethyne","explanation":"Alkyne → C2H2 ethyne"}]
+  },
+  "skeleton": {
+    "6":[{"prompt":"Hydrogen burns in oxygen.","canonicalAnswer":"2 h2 + o2 -> 2 h2o","explanation":"Combustion produces water"}],
+    "7":[{"prompt":"Magnesium reacts with oxygen.","canonicalAnswer":"2 mg + o2 -> 2 mgo","explanation":"Mg + O2 → MgO"}],
+    "8":[{"prompt":"Iron reacts with chlorine.","canonicalAnswer":"2 fe + 3 cl2 -> 2 fecl3","explanation":"Fe + Cl2 → FeCl3"}],
+    "9":[{"prompt":"Sodium reacts with water.","canonicalAnswer":"2 na + 2 h2o -> 2 naoh + h2","explanation":"Na + H2O → NaOH + H2"}],
+    "10":[{"prompt":"Aluminum reacts with oxygen.","canonicalAnswer":"4 al + 3 o2 -> 2 al2o3","explanation":"Al + O2 → Al2O3"}],
+    "11":[{"prompt":"Zinc reacts with hydrochloric acid.","canonicalAnswer":"zn + 2 hcl -> zncl2 + h2","explanation":"Zn + HCl → ZnCl2 + H2"}],
+    "12":[{"prompt":"Copper reacts with nitric acid.","canonicalAnswer":"3 cu + 8 hno3 -> 3 cuno3 + 2 no + 4 h2o","explanation":"Cu + HNO3 → Cu(NO3)2 + NO + H2O"}]
+  },
+  "word": {
+    "6":[{"prompt":"Carbon Dioxide","canonicalAnswer":"CO2","explanation":"C=carbon, O2=two oxygens"},{"prompt":"Water","canonicalAnswer":"H2O","explanation":"H2O is water"},{"prompt":"Sodium Chloride","canonicalAnswer":"NaCl","explanation":"Na+ Cl- → table salt"}],
+    "7":[{"prompt":"Methane","canonicalAnswer":"CH4","explanation":"1 carbon → CH4"},{"prompt":"Ammonia","canonicalAnswer":"NH3","explanation":"NH3 is ammonia"},{"prompt":"Calcium Hydroxide","canonicalAnswer":"Ca(OH)2","explanation":"Ca2+ + 2 OH- → Ca(OH)2"}],
+    "8":[{"prompt":"Dinitrogen Oxide","canonicalAnswer":"N2O","explanation":"N2O → dinitrogen monoxide"},{"prompt":"Sulfur Dioxide","canonicalAnswer":"SO2","explanation":"SO2 → sulfur dioxide"}],
+    "9":[{"prompt":"Propane","canonicalAnswer":"C3H8","explanation":"Propane has 3 carbons"},{"prompt":"Aluminum Oxide","canonicalAnswer":"Al2O3","explanation":"Al2O3 is aluminum oxide"}],
+    "10":[{"prompt":"Ethene","canonicalAnswer":"C2H4","explanation":"Alkene → C2H4"},{"prompt":"Barium Sulfide","canonicalAnswer":"BaS","explanation":"Ba2+ + S2- → BaS"}],
+    "11":[{"prompt":"Propene","canonicalAnswer":"C3H6","explanation":"Alkene → C3H6"},{"prompt":"Copper(II) Chloride","canonicalAnswer":"CuCl2","explanation":"Cu2+ + 2Cl- → CuCl2"}],
+    "12":[{"prompt":"Ethyne","canonicalAnswer":"C2H2","explanation":"Alkyne → C2H2"},{"prompt":"Ferric Hydroxide","canonicalAnswer":"Fe(OH)3","explanation":"Fe3+ + 3OH- → Fe(OH)3"}]
+  }
 }
