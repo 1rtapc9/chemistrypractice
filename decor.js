@@ -1,5 +1,4 @@
 const bgSection=document.getElementById("backgroundArticles");
-
 function spawnArticleTip(){
   const article=ARTICLES[Math.floor(Math.random()*ARTICLES.length)];
   const tip=document.createElement("div");
@@ -11,5 +10,4 @@ function spawnArticleTip(){
   bgSection.appendChild(tip);
   setTimeout(()=>tip.remove(),25000);
 }
-
-setInterval(spawnArticleTip,5000);
+setInterval(spawnArticleTip,4000);
