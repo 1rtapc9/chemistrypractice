@@ -1,4 +1,3 @@
-// Fun visual enhancements: rotating chemistry icons
 function spawnRotatingIcon(){
   const icon=document.createElement("div");
   const emojis=["⚛️","🧪","🧬","🧫","🔬","🌡️"];
