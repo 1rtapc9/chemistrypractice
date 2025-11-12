@@ -51,6 +51,11 @@ function submitAnswer(){
   const feedback=document.getElementById("feedback");
   const mode=document.getElementById("mode").value;
   usedQuestions[mode][grade].push(currentQuestion.prompt);
+  playSound(isCorrect); // from sounds.js
+
+  if(isCorrect && streak>0 && streak%5===0){
+  celebrateStreak(); // from animations.js
+}
 
   const isCorrect=normalize(input)===correct;
 
@@ -91,6 +96,8 @@ fetch("questions.json").then(r=>r.json()).then(data=>{
   const lastTopic=localStorage.getItem("topic")||CONFIG.topics[0];
   document.getElementById("mode").value=lastTopic;
   pickRandomQuestion();
+  const lastTheme = localStorage.getItem("theme") || "bright";
+applyTheme(lastTheme); // from themes.js
 });
 
 function initModeOptions(){
