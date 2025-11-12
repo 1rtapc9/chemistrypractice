@@ -1,1 +1,93 @@
+body {
+  font-family: "Segoe UI", sans-serif;
+  background: #f8ffff;
+  color: #002b36;
+  margin: 0;
+  transition: background 0.3s, color 0.3s;
+}
+header {
+  background: #00bfa6;
+  color: white;
+  padding: 10px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+h1 { margin: 0; font-size: 1.6em; }
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 30px;
+}
+.control-panel {
+  margin-bottom: 20px;
+}
+.question-box {
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  width: 90%;
+  max-width: 500px;
+  text-align: center;
+}
+.prompt {
+  font-size: 1.2em;
+  margin: 15px 0;
+}
+#answerInput {
+  padding: 8px;
+  width: 80%;
+  border: 1px solid #00bfa6;
+  border-radius: 6px;
+  font-size: 1em;
+}
+button {
+  background: #00bfa6;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 12px;
+  font-size: 1em;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+button:hover {
+  background: #009d8a;
+}
+.correct { color: #00a000; font-weight: bold; margin-top: 10px; }
+.wrong { color: #d32f2f; font-weight: bold; margin-top: 10px; }
+.explanation { font-size: 0.9em; color: #444; margin-top: 4px; }
+.status-bar {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.9em;
+  color: #00695c;
+}
+#progressBar {
+  background: #ccece9;
+  border-radius: 10px;
+  height: 10px;
+  width: 100%;
+  margin: 10px 0;
+}
+#progressFill {
+  background: #00bfa6;
+  height: 100%;
+  width: 0%;
+  border-radius: 10px;
+  transition: width 0.3s;
+}
+footer {
+  margin-top: 40px;
+  font-size: 0.8em;
+  color: #555;
+}
+.dark {
+  background: #002b36;
+  color: #e0f7f4;
+}
+.dark header { background: #00796b; }
+.dark .question-box { background: #004d40; color: #e
 
