@@ -1,141 +1,15 @@
 {
-  "acid": {
-    "6": [
-      {"prompt": "Name HCl (aq).", "canonicalAnswer": "hydrochloric acid", "explanation": "Binary acid: hydro- + root + -ic acid."},
-      {"prompt": "Name HBr (aq).", "canonicalAnswer": "hydrobromic acid", "explanation": "Binary acid: hydrobromic acid."}
-    ],
-    "7": [
-      {"prompt": "Name H2SO4 (aq).", "canonicalAnswer": "sulfuric acid", "explanation": "SO4 → -ic acid form."}
-    ],
-    "8": [
-      {"prompt": "Name H2SO3 (aq).", "canonicalAnswer": "sulfurous acid", "explanation": "SO3 → -ous acid form."}
-    ],
-    "9": [
-      {"prompt": "Name HNO3 (aq).", "canonicalAnswer": "nitric acid", "explanation": "NO3 → nitric acid."}
-    ],
-    "10": [
-      {"prompt": "Name H3PO4 (aq).", "canonicalAnswer": "phosphoric acid", "explanation": "PO4 → phosphoric acid."}
-    ],
-    "11": [
-      {"prompt": "Name HClO4 (aq).", "canonicalAnswer": "perchloric acid", "explanation": "ClO4 → perchloric acid."}
-    ],
-    "12": [
-      {"prompt": "Name HCN (aq).", "canonicalAnswer": "hydrocyanic acid", "explanation": "CN → hydrocyanic acid."}
+  "acid": { "6":[{"prompt":"Name HCl (aq).","canonicalAnswer":"hydrochloric acid","explanation":"Binary acid: hydro- + root + -ic acid."}] },
+  "base": { "6":[{"prompt":"Name NaOH.","canonicalAnswer":"sodium hydroxide","explanation":"Na+ and OH- form sodium hydroxide."}] },
+  "ionic": { "6":[{"prompt":"Name NaCl.","canonicalAnswer":"sodium chloride","explanation":"Ionic compound of Na+ and Cl-."}] },
+  "molecular": { "6":[{"prompt":"Name CO2.","canonicalAnswer":"carbon dioxide","explanation":"Molecular compound, two oxygens."}] },
+  "hydrocarbon": { "6":[{"prompt":"Name CH4.","canonicalAnswer":"methane","explanation":"1 carbon → methane."}] },
+  "word": {
+    "6":[
+      {"prompt":"Carbon Dioxide","canonicalAnswer":"CO2","explanation":"C=carbon, O2=two oxygens."},
+      {"prompt":"Water","canonicalAnswer":"H2O","explanation":"H2O is water."},
+      {"prompt":"Sodium Chloride","canonicalAnswer":"NaCl","explanation":"Na+ Cl- → table salt."}
     ]
   },
-  "base": {
-    "6": [
-      {"prompt": "Name NaOH.", "canonicalAnswer": "sodium hydroxide", "explanation": "Na+ and OH- → sodium hydroxide."}
-    ],
-    "7": [
-      {"prompt": "Name KOH.", "canonicalAnswer": "potassium hydroxide", "explanation": "K+ and OH- → potassium hydroxide."}
-    ],
-    "8": [
-      {"prompt": "Name Ca(OH)2.", "canonicalAnswer": "calcium hydroxide", "explanation": "Divalent Ca2+ → calcium hydroxide."}
-    ],
-    "9": [
-      {"prompt": "Name Al(OH)3.", "canonicalAnswer": "aluminum hydroxide", "explanation": "Trivalent Al3+ → aluminum hydroxide."}
-    ],
-    "10": [
-      {"prompt": "Name Ba(OH)2.", "canonicalAnswer": "barium hydroxide", "explanation": "Barium forms Ba(OH)2."}
-    ],
-    "11": [
-      {"prompt": "Name Sr(OH)2.", "canonicalAnswer": "strontium hydroxide", "explanation": "Strong base of strontium."}
-    ],
-    "12": [
-      {"prompt": "Name NH4OH.", "canonicalAnswer": "ammonium hydroxide", "explanation": "Weak base of ammonia."}
-    ]
-  },
-  "ionic": {
-    "6": [
-      {"prompt": "Name NaCl.", "canonicalAnswer": "sodium chloride", "explanation": "Metal + nonmetal → ionic compound."}
-    ],
-    "7": [
-      {"prompt": "Name CaF2.", "canonicalAnswer": "calcium fluoride", "explanation": "Ca2+ and F- form calcium fluoride."}
-    ],
-    "8": [
-      {"prompt": "Name FeCl2.", "canonicalAnswer": "iron(ii) chloride", "explanation": "Fe2+ gives iron(II) chloride."}
-    ],
-    "9": [
-      {"prompt": "Name CuO.", "canonicalAnswer": "copper(ii) oxide", "explanation": "Cu2+ + O2- → copper(II) oxide."}
-    ],
-    "10": [
-      {"prompt": "Name Fe2O3.", "canonicalAnswer": "iron(iii) oxide", "explanation": "Fe3+ → iron(III) oxide."}
-    ],
-    "11": [
-      {"prompt": "Name PbCl4.", "canonicalAnswer": "lead(iv) chloride", "explanation": "Pb4+ → lead(IV) chloride."}
-    ],
-    "12": [
-      {"prompt": "Name SnO2.", "canonicalAnswer": "tin(iv) oxide", "explanation": "Sn4+ → tin(IV) oxide."}
-    ]
-  },
-  "molecular": {
-    "6": [
-      {"prompt": "Name CO.", "canonicalAnswer": "carbon monoxide", "explanation": "Mono- indicates one oxygen."}
-    ],
-    "7": [
-      {"prompt": "Name CO2.", "canonicalAnswer": "carbon dioxide", "explanation": "Two oxygens → dioxide."}
-    ],
-    "8": [
-      {"prompt": "Name N2O5.", "canonicalAnswer": "dinitrogen pentoxide", "explanation": "Two nitrogens and five oxygens."}
-    ],
-    "9": [
-      {"prompt": "Name SO3.", "canonicalAnswer": "sulfur trioxide", "explanation": "SO3 is sulfur trioxide."}
-    ],
-    "10": [
-      {"prompt": "Name PCl5.", "canonicalAnswer": "phosphorus pentachloride", "explanation": "Five chlorines → pentachloride."}
-    ],
-    "11": [
-      {"prompt": "Name N2O4.", "canonicalAnswer": "dinitrogen tetroxide", "explanation": "Two nitrogens, four oxygens."}
-    ],
-    "12": [
-      {"prompt": "Name SF6.", "canonicalAnswer": "sulfur hexafluoride", "explanation": "Six fluorines → hexafluoride."}
-    ]
-  },
-  "hydrocarbon": {
-    "6": [
-      {"prompt": "Name CH4.", "canonicalAnswer": "methane", "explanation": "1 carbon → meth- + -ane."}
-    ],
-    "7": [
-      {"prompt": "Name C2H6.", "canonicalAnswer": "ethane", "explanation": "2 carbons → eth- + -ane."}
-    ],
-    "8": [
-      {"prompt": "Name C3H8.", "canonicalAnswer": "propane", "explanation": "3 carbons → prop- + -ane."}
-    ],
-    "9": [
-      {"prompt": "Name C4H10.", "canonicalAnswer": "butane", "explanation": "4 carbons → but- + -ane."}
-    ],
-    "10": [
-      {"prompt": "Name C2H4.", "canonicalAnswer": "ethene", "explanation": "Double bond → -ene suffix."}
-    ],
-    "11": [
-      {"prompt": "Name C3H6.", "canonicalAnswer": "propene", "explanation": "Double bond → -ene suffix."}
-    ],
-    "12": [
-      {"prompt": "Name C2H2.", "canonicalAnswer": "ethyne", "explanation": "Triple bond → -yne suffix."}
-    ]
-  },
-  "skeleton": {
-    "6": [
-      {"prompt": "Hydrogen burns in oxygen.", "canonicalAnswer": "2 h2 + o2 -> 2 h2o", "explanation": "Combustion forms water."}
-    ],
-    "7": [
-      {"prompt": "Zinc reacts with sulfur.", "canonicalAnswer": "zn + s -> zns", "explanation": "Synthesis reaction."}
-    ],
-    "8": [
-      {"prompt": "Magnesium reacts with HCl.", "canonicalAnswer": "mg + 2 hcl -> mgcl2 + h2", "explanation": "Single replacement reaction."}
-    ],
-    "9": [
-      {"prompt": "Hydrogen peroxide decomposes.", "canonicalAnswer": "2 h2o2 -> 2 h2o + o2", "explanation": "Decomposition reaction."}
-    ],
-    "10": [
-      {"prompt": "Iron reacts with oxygen.", "canonicalAnswer": "4 fe + 3 o2 -> 2 fe2o3", "explanation": "Formation of iron oxide."}
-    ],
-    "11": [
-      {"prompt": "Methane combusts in oxygen.", "canonicalAnswer": "ch4 + 2 o2 -> co2 + 2 h2o", "explanation": "Complete combustion."}
-    ],
-    "12": [
-      {"prompt": "Ammonium dichromate decomposes.", "canonicalAnswer": "(nh4)2cr2o7 -> cr2o3 + n2 + 4 h2o", "explanation": "Thermal decomposition."}
-    ]
-  }
+  "skeleton": { "6":[{"prompt":"Hydrogen burns in oxygen.","canonicalAnswer":"2 h2 + o2 -> 2 h2o","explanation":"Combustion produces water."}] }
 }
