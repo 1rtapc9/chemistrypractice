@@ -12,6 +12,7 @@ select, input, button { font-size: 1em; padding: 0.3em; margin: 0.2em 0; }
 .feedback-correct { color: green; font-weight: bold; margin-top: 10px; }
 .feedback-wrong { color: red; font-weight: bold; margin-top: 10px; }
 .small { font-size: 0.85em; color: #555; }
+#nextBtn { margin-top: 10px; display: none; }
 </style>
 </head>
 <body>
@@ -29,6 +30,7 @@ select, input, button { font-size: 1em; padding: 0.3em; margin: 0.2em 0; }
   <input type="text" id="answerInput" placeholder="Type your answer">
   <button id="submitBtn">Submit</button>
   <div id="feedback"></div>
+  <button id="nextBtn">Next Question</button>
 </div>
 
 <script>
@@ -36,24 +38,28 @@ const QUESTIONS = {
   acid: {
     6: [
       { prompt: "Name HCl (aqueous).", canonicalAnswer: "hydrochloric acid", explanation: "Binary acid: 'hydro-' + root + '-ic acid'." },
-      { prompt: "Name HBr (aq).", canonicalAnswer: "hydrobromic acid", explanation: "HBr in water is hydrobromic acid." }
+      { prompt: "Name HBr (aq).", canonicalAnswer: "hydrobromic acid", explanation: "HBr in water is hydrobromic acid." },
+      { prompt: "Name HI (aq).", canonicalAnswer: "hydroiodic acid", explanation: "Binary acids follow hydro-...-ic naming." }
+      // Add up to 50+ here...
     ],
     7: [
       { prompt: "Name H2SO4 (aq).", canonicalAnswer: "sulfuric acid", explanation: "SO4^2- → sulfuric acid (-ic)." },
       { prompt: "Name HNO3 (aq).", canonicalAnswer: "nitric acid", explanation: "NO3^- → nitric acid (-ic)." }
-    ],
-    8: [
-      { prompt: "Name H3PO4 (aq).", canonicalAnswer: "phosphoric acid", explanation: "PO4^3- → phosphoric acid." }
+      // Add more...
     ]
+    // Continue up to grade 12
   },
   skeleton: {
     6: [
       { prompt: "Solid sodium reacts with water — skeleton.", canonicalAnswer: "2 Na + 2 H2O -> 2 NaOH + H2", explanation: "Alkali metals react to form hydroxide + hydrogen gas." },
       { prompt: "Hydrogen burns in oxygen — skeleton.", canonicalAnswer: "2 H2 + O2 -> 2 H2O", explanation: "Combustion produces water." }
+      // Add more...
     ],
     7: [
-      { prompt: "Magnesium reacts with HCl — skeleton.", canonicalAnswer: "Mg + 2 HCl -> MgCl2 + H2", explanation: "Single displacement: metal + acid → salt + H2." }
+      { prompt: "Magnesium reacts with HCl — skeleton.", canonicalAnswer: "Mg + 2 HCl -> MgCl2 + H2", explanation: "Single displacement reaction." }
+      // Add more...
     ]
+    // Continue up to grade 12
   }
 };
 
@@ -69,6 +75,9 @@ function pickRandomQuestion() {
   document.getElementById('feedback').innerHTML = '';
   document.getElementById('gradeDisplay').textContent = `Grade: ${grade}`;
   document.getElementById('answerInput').value = '';
+  document.getElementById('answerInput').disabled = false;
+  document.getElementById('submitBtn').disabled = false;
+  document.getElementById('nextBtn').style.display = 'none';
 }
 
 function normalize(str) { return str.trim().toLowerCase(); }
@@ -89,12 +98,15 @@ function submitAnswer() {
     feedbackDiv.innerHTML = `<div class="feedback-wrong">Not quite ❌</div><div class="small">Expected: ${currentQuestion.canonicalAnswer}</div><div class="small">Explanation: ${currentQuestion.explanation}</div>`;
   }
 
-  setTimeout(pickRandomQuestion, 800);
+  document.getElementById('answerInput').disabled = true;
+  document.getElementById('submitBtn').disabled = true;
+  document.getElementById('nextBtn').style.display = 'inline-block';
 }
 
 document.getElementById('submitBtn').addEventListener('click', submitAnswer);
 document.getElementById('answerInput').addEventListener('keydown', e => { if(e.key==='Enter'){submitAnswer();} });
 document.getElementById('mode').addEventListener('change', () => { grade = 6; streak = 0; pickRandomQuestion(); });
+document.getElementById('nextBtn').addEventListener('click', pickRandomQuestion);
 
 pickRandomQuestion();
 </script>
