@@ -10,10 +10,7 @@ function createBubble(){
   const id=setInterval(()=>{
     top+=Math.random()*2+1;
     bubble.style.top=top+"px";
-    if(top>window.innerHeight){
-      bubble.remove();
-      clearInterval(id);
-    }
+    if(top>window.innerHeight){bubble.remove();clearInterval(id);}
   },20);
 }
 setInterval(createBubble,300);
