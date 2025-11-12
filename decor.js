@@ -1,19 +1,26 @@
 const funVisuals=document.getElementById("funVisuals");
+
 function createBubble(){
-  const bubble=document.createElement("div");
-  bubble.classList.add("bubble");
-  bubble.style.left=Math.random()*100+"%";
-  bubble.style.width=bubble.style.height=(Math.random()*30+20)+"px";
-  bubble.style.background=`rgba(0,191,166,${Math.random()*0.5+0.3})`;
-  funVisuals.appendChild(bubble);
-  let top=-50;
-  const id=setInterval(()=>{
-    top+=Math.random()*2+1;
-    bubble.style.top=top+"px";
-    if(top>window.innerHeight){bubble.remove();clearInterval(id);}
-  },20);
+  const b=document.createElement("div");
+  b.classList.add("bubble");
+  const size=Math.random()*(CONFIG.bubble.maxSize-CONFIG.bubble.minSize)+CONFIG.bubble.minSize;
+  b.style.width=b.style.height=size+"px";
+  b.style.left=Math.random()*100+"%";
+  b.style.bottom="-50px";
+  const speed=Math.random()*(CONFIG.bubble.maxSpeed-CONFIG.bubble.minSpeed)+CONFIG.bubble.minSpeed;
+  funVisuals.appendChild(b);
+
+  let pos=-50;
+  function animate(){
+    pos+=speed;
+    b.style.bottom=pos+"px";
+    if(pos<window.innerHeight+50) requestAnimationFrame(animate);
+    else b.remove();
+  }
+  animate();
 }
-setInterval(createBubble,300);
+
+setInterval(createBubble, CONFIG.bubble.spawnInterval);
 
 document.querySelectorAll(".question-box").forEach(box=>{
   box.addEventListener("mouseenter",()=>box.style.transform="scale(1.02)");
