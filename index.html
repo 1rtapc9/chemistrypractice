@@ -14,6 +14,7 @@
     <select id="themeSelect"></select>
     <button id="soundToggle">🔊</button>
     <button id="statsBtn">📊 Stats</button>
+    <button id="analyticsBtn">📈 Analytics</button>
   </div>
 </header>
 
@@ -42,6 +43,14 @@
   </div>
 </div>
 
+<div id="analyticsModal" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <h2>Analytics</h2>
+    <div id="analyticsContent"></div>
+  </div>
+</div>
+
 <footer>
   <p>Interactive Chemistry Learning ⚛️ | Inspired by IXL</p>
 </footer>
@@ -54,5 +63,6 @@
 <script src="logic.js"></script>
 <script src="decor.js"></script>
 <script src="stats.js"></script>
+<script src="analytics.js"></script>
 </body>
 </html>
