@@ -4,7 +4,6 @@ const CONFIG = {
   maxGrade: 12,
   topics: ["acid","base","ionic","molecular","hydrocarbon","skeleton","word"],
   theme: { primary: "#00bfa6", secondary: "#f0ffff", darkPrimary: "#00796b", darkSecondary: "#002b36" },
-  bubble: { minSize: 20, maxSize: 40, minSpeed: 0.5, maxSpeed: 2.0, spawnInterval: 250 },
   streak: { milestoneConfetti: [5,10,20] },
   qos: {
     ignoreCase: true,
