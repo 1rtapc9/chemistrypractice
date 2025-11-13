@@ -111,4 +111,55 @@
     "11":[{"prompt":"Propene","canonicalAnswer":"C3H6","explanation":"Alkene → C3H6"},{"prompt":"Copper(II) Chloride","canonicalAnswer":"CuCl2","explanation":"Cu2+ + 2Cl- → CuCl2"}],
     "12":[{"prompt":"Ethyne","canonicalAnswer":"C2H2","explanation":"Alkyne → C2H2"},{"prompt":"Ferric Hydroxide","canonicalAnswer":"Fe(OH)3","explanation":"Fe3+ + 3OH- → Fe(OH)3"}]
   }
+  {
+  "acid_naming": [
+    {"prompt":"HCl (aq)","canonicalAnswer":"hydrochloric acid","explanation":"Binary acid — hydro- + root + -ic acid","hint":"Starts with 'hydro'"},
+    {"prompt":"H2SO4 (aq)","canonicalAnswer":"sulfuric acid","explanation":"SO4 gives -ic"}
+  ],
+
+  "hydrocarbon_naming": [
+    {"prompt":"CH4","canonicalAnswer":"methane","explanation":"1 carbon -> meth- + -ane"},
+    {"prompt":"C2H6","canonicalAnswer":"ethane","explanation":"2 carbons -> eth- + -ane"}
+  ],
+
+  "mega_mixed_naming": [
+    {"prompt":"FeCl3","canonicalAnswer":"iron(III) chloride","explanation":"Fe3+ needs roman numeral III"},
+    {"prompt":"CO2","canonicalAnswer":"carbon dioxide","explanation":"molecular naming: carbon dioxide"}
+  ],
+
+  "english_www9": [
+    {"prompt":"example term 1","canonicalAnswer":"definition 1","explanation":"placeholder"}
+  ],
+
+  "vsepr_bonding": [
+    {"prompt":"Electron pair arrangement for CH4","canonicalAnswer":"tetrahedral","explanation":"4 bonding pairs"}
+  ],
+
+  "biomolecules": [
+    {"prompt":"Glucose formula","canonicalAnswer":"C6H12O6","explanation":"simple sugar"},
+    {"prompt":"Amino acid basic group","canonicalAnswer":"amine","explanation":"NH2 group"}
+  ],
+
+  "intro_bonding_f25":[{"prompt":"metal + nonmetal bonding","canonicalAnswer":"ionic","explanation":"transfer of electrons"}],
+  "ionic_metallic_covalent_fall25":[{"prompt":"example ionic compound","canonicalAnswer":"NaCl","explanation":"sodium chloride"}],
+  "ionic_metallic_fall25":[{"prompt":"metallic bond example","canonicalAnswer":"Cu metal","explanation":"delocalized electrons"}],
+  "periodic_sp25":[{"prompt":"Atomic number of Oxygen","canonicalAnswer":"8","explanation":"O has 8 protons"}],
+  "electrons_part2":[{"prompt":"1s orbital can hold how many electrons?","canonicalAnswer":"2","explanation":"two electrons"}],
+  "electrons_part1_fall25":[{"prompt":"Principal quantum number n=2 corresponds to which shell?","canonicalAnswer":"second shell","explanation":"n=2"}],
+  "nuclear_chemistry":[{"prompt":"Alpha decay emits?","canonicalAnswer":"helium nucleus","explanation":"alpha = helium nucleus"}],
+  "the_atom_f25":[{"prompt":"Proton charge","canonicalAnswer":"+1","explanation":"positive one"}],
+  "matter_properties_phase_changes":[{"prompt":"Melting point definition","canonicalAnswer":"solid to liquid transition","explanation":"solid melts to liquid"}],
+  "intro_chem_data_numbers_units_fall25":[{"prompt":"SI base unit for mass","canonicalAnswer":"kilogram","explanation":"kg"}],
+  "aug18_21_evabryant":[{"prompt":"sample flashcard a","canonicalAnswer":"sample answer a","explanation":"placeholder"}],
+  "intro_chem_spring2025":[{"prompt":"density formula","canonicalAnswer":"mass/volume","explanation":"d = m/V"}],
+
+  // keep original practice topics too
+  "acid":[{"prompt":"Name HBr (aq)","canonicalAnswer":"hydrobromic acid","explanation":"binary acid"}],
+  "base":[{"prompt":"Name NaOH","canonicalAnswer":"sodium hydroxide","explanation":"Na+ and OH-"}],
+  "ionic":[{"prompt":"Name NaCl","canonicalAnswer":"sodium chloride","explanation":"salt"}],
+  "molecular":[{"prompt":"Name CO2","canonicalAnswer":"carbon dioxide","explanation":"molecular compound"}],
+  "hydrocarbon":[{"prompt":"Name C3H8","canonicalAnswer":"propane","explanation":"3 carbons -> propane"}],
+  "skeleton":[{"prompt":"Hydrogen burns in oxygen","canonicalAnswer":"2 H2 + O2 -> 2 H2O","explanation":"combustion"}],
+  "word":[{"prompt":"Water","canonicalAnswer":"H2O","explanation":"water formula"}]
+  }
 }
